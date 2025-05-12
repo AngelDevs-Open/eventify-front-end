@@ -1,0 +1,11 @@
+{
+  "toolbar": {
+    "home": "Inicio",
+    "profile": "Perfil",
+    "events": "Eventos",
+    "tasks": "Tareas",
+    "quotes": "Cotizaciones",
+    "messages": "Mensajes",
+    "subscriptions": "Suscripciones"
+  }
+}

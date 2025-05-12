@@ -1,0 +1,11 @@
+{
+  "toolbar": {
+    "home": "Home",
+    "profile": "Profile",
+    "events": "Events",
+    "tasks": "Tasks",
+    "quotes": "Quotes",
+    "messages": "Messages",
+    "subscriptions": "Subscriptions"
+  }
+}
