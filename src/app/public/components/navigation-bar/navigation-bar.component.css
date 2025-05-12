@@ -1,0 +1,26 @@
+.mat-spacer{
+  flex: 1 1 auto;
+}
+
+a{
+  text-decoration: none;
+  font-size: 16px;
+  margin-right: 24px;
+  color:white;
+}
+
+a:hover{
+  color:#6fffe9;
+  font-size: 18px;
+  transition: 0.3s ease-in-out;
+}
+
+.logo{
+  color:#6fffe9;
+  font-weight: bold;
+}
+
+mat-toolbar{
+  background-color: #3A506B;
+  color: white;
+}
