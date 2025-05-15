@@ -1,0 +1,62 @@
+<div class="quote-container">
+  <div class="quote-manage">
+    <p class="title">Quotes</p>
+
+    <div>
+      <button mat-raised-button name="newQuote" style="background-color: #3A506B; color: #fff"><mat-icon>add-circle</mat-icon> New Quote</button>
+    </div>
+
+    <div class="table-services">
+      <table mat-table [dataSource]="dataSource">
+
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+        </ng-container>
+
+        <!-- Name Column -->
+        <ng-container matColumnDef="title">
+          <th mat-header-cell *matHeaderCellDef> Title </th>
+          <td mat-cell *matCellDef="let element"> {{element.title}} </td>
+        </ng-container>
+
+        <!-- Weight Column -->
+        <ng-container matColumnDef="eventType">
+          <th mat-header-cell *matHeaderCellDef> Event Type </th>
+          <td mat-cell *matCellDef="let element"> {{element.eventType}} </td>
+        </ng-container>
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="eventDate">
+          <th mat-header-cell *matHeaderCellDef> Event Date </th>
+          <td mat-cell *matCellDef="let element"> {{element.eventDate}} </td>
+        </ng-container>
+
+
+        <!-- Symbol Column -->
+        <ng-container matColumnDef="totalPrice">
+          <th mat-header-cell *matHeaderCellDef> Total Price </th>
+          <td mat-cell *matCellDef="let element"> {{element.totalPrice}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="state">
+          <th mat-header-cell *matHeaderCellDef> State </th>
+          <td mat-cell *matCellDef="let element"> {{element.state}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef> Actions </th>
+          <td class="action-buttons" mat-cell *matCellDef="let element"> <button (click)="onEditMode(element)"><mat-icon>edit</mat-icon></button> <button (click)="onDeleteQuoteOrder(element)"><mat-icon>delete</mat-icon></button> </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+    </div>
+  </div>
+  <app-quote-order-create-and-edit [eventDate]="eventDate" [quoteOrder]="quoteOrderData" [editMode]="editMode" [serviceItems]="serviceItemsForQuoteOrder"
+                                   (quoteOrderUpdateRequested)="onQuoteOrderUpdateRequested($event)"
+                                   (serviceItemsUpdateRequested)="onServiceItemsUpdateRequested($event)"
+                                   (serviceItemsAddRequested)="onServiceItemsAddRequested($event)"
+                                   (quoteOrderAddRequested)="onQuoteOrderAddRequested($event)"></app-quote-order-create-and-edit>
+</div>
