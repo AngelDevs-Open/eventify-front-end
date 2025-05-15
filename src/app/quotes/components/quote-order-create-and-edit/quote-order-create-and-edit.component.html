@@ -1,0 +1,115 @@
+
+<div class="quote-container">
+  <section class="main-content">
+    <p class="title">Create Quote</p>
+    <p><b>Main Information</b></p>
+    <form #quoteForm='ngForm' (submit)="onSubmit()">
+      <div class="quote-form">
+        <mat-form-field appearance="outline">
+          <mat-label>ID</mat-label>
+          <input [(ngModel)]="quoteOrder.id" matInput name="id">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Title</mat-label>
+          <input [(ngModel)]="quoteOrder.title" matInput name="Title">
+        </mat-form-field>
+        <div class="row-form">
+          <mat-form-field appearance="outline">
+            <mat-label>Event Type</mat-label>
+            <mat-select [(ngModel)]="quoteOrder.eventType" name="eventType">
+              @for (option of eventTypeOptions; track option.label) {
+                <mat-option [value]="option.value">{{option.label}}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Event Date</mat-label>
+            <input [(ngModel)]="eventDate" matInput [matDatepicker]="picker" name="eventDate">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div class="row-form">
+          <mat-form-field appearance="outline">
+            <mat-label>Guests Number</mat-label>
+            <input [(ngModel)]="quoteOrder.guestQuantity" type="number" matInput name="guestQuantity">
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Location</mat-label>
+            <input [(ngModel)]="quoteOrder.location" matInput name="location">
+          </mat-form-field>
+        </div>
+
+
+        <ng-container>
+          <div class="btn-content">
+            <button type="button" (click)="onCancel()" class="btn-cancel" mat-raised-button style="background-color: #fff; color: #000;border: #3A506B">Cancel</button>
+            <button type="submit" mat-raised-button style="background-color: #3A506B; color:#fff">Create New Quote</button>
+
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="table-services">
+        <table mat-table [dataSource]="serviceItems">
+
+          <ng-container matColumnDef="id">
+            <th mat-header-cell *matHeaderCellDef> ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="description">
+            <th mat-header-cell *matHeaderCellDef> Description </th>
+            <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+          </ng-container>
+
+          <!-- Weight Column -->
+          <ng-container matColumnDef="quantity">
+            <th mat-header-cell *matHeaderCellDef> Quantity </th>
+            <td mat-cell *matCellDef="let element"> {{element.quantity}} </td>
+          </ng-container>
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="unitPrice">
+            <th mat-header-cell *matHeaderCellDef> Unit Price </th>
+            <td mat-cell *matCellDef="let element"> {{element.unitPrice}} </td>
+          </ng-container>
+
+
+          <!-- Symbol Column -->
+          <ng-container matColumnDef="totalPrice">
+            <th mat-header-cell *matHeaderCellDef> Total Price </th>
+            <td mat-cell *matCellDef="let element"> {{element.totalPrice}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="quoteOrderId">
+            <th mat-header-cell *matHeaderCellDef> Quote ID </th>
+            <td mat-cell *matCellDef="let element"> {{element.quoteOrderId}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+      </div>
+
+      <div class="row-form">
+        <div class="btn-add-service" style="width: 40%">
+          <button type="button" mat-raised-button (click)="activeServiceForm()" style="background-color: #3A506B; color:#fff; margin-top:16px; width: 80%"> <mat-icon>add-circle</mat-icon> Add Service</button>
+        </div>
+        <div class="quote-price-info" style="width: 45%">
+          <p><b>Subtotal: S/ {{getSubTotalPrice()}}</b></p>
+          <p><b>IGV (18%): S/ {{getIGVPrice()}}</b></p>
+          <p><b>Total Price: S/ {{getTotalPriceInfo()}}</b></p>
+        </div>
+      </div>
+
+    </form>
+  </section>
+  <section class="service-form">
+    <app-service-item-create-and-edit [serviceFormDisabled]="serviceFormDisabled" [quoteOrderId]="quoteOrder.id" (serviceItemAddRequested)="onServiceItemAddRequested($event)"></app-service-item-create-and-edit>
+  </section>
+
+
+
+</div>

@@ -1,0 +1,48 @@
+.quote-container{
+  background-color: #fff;
+  padding: 24px 32px;
+  display: flex;
+}
+.title{
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.main-content{
+  width: 60%;
+}
+
+.service-form{
+  margin-left: 52px;
+  display: flex;
+  flex-direction: column;
+  width: 30%;
+}
+
+.quote-form{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.row-form{
+  display: flex;
+  justify-content: space-between;
+}
+
+.row-form mat-form-field{
+  width: 45%;
+}
+
+
+.btn-content{
+  display: flex;
+  justify-content: end;
+  margin-bottom: 24px;
+}
+
+.btn-content button{
+  width: 20%;
+  margin-left: 32px;
+}
+
