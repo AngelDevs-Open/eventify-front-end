@@ -1,0 +1,31 @@
+
+
+.form-container{
+  background-color: #fff;
+  width: 100%;
+  padding: 16px 24px;
+  border-radius: 8px;
+}
+
+
+.form-section{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+button{
+  width: 40%;
+}
+
+.title{
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.btn-content{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
