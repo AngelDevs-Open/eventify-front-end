@@ -1,0 +1,46 @@
+/* task-board.component.css */
+.board-card {
+  width: 240px;
+  margin: 16px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.board-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+}
+
+.board-content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.board-title {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.board-description {
+  color: #616161;
+  margin-top: 8px;
+  flex-grow: 1;
+}
+
+.board-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.column-count {
+  font-size: 12px;
+  color: #757575;
+}
+
+.task-count {
+  font-size: 12px;
+  color: #757575;
+}
