@@ -1,0 +1,180 @@
+/* task-management.component.css */
+.task-board-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.board-content {
+  flex-grow: 1;
+  background-color: #f5f5f5;
+  overflow-x: auto;
+  padding: 16px;
+  height: calc(100% - 64px);
+}
+
+.board-columns-container {
+  display: flex;
+  gap: 16px;
+  min-height: 100%;
+}
+
+.column-container {
+  background-color: #e0e0e0;
+  border-radius: 4px;
+  width: 280px;
+  min-width: 280px;
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+}
+
+.column-header {
+  padding: 8px 16px;
+  background-color: #bdbdbd;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.column-header h2 {
+  margin: 0;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.tasks-container {
+  flex-grow: 1;
+  overflow-y: auto;
+  padding: 8px;
+  min-height: 100px;
+}
+
+.task-item {
+  background-color: white;
+  border-radius: 4px;
+  padding: 12px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+  transition: box-shadow 0.3s ease;
+}
+
+.task-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.task-content h3 {
+  margin: 0 0 8px 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.task-content p {
+  margin: 0 0 8px 0;
+  font-size: 12px;
+  color: #757575;
+}
+
+.task-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 12px;
+}
+
+.due-date {
+  display: flex;
+  align-items: center;
+  color: #616161;
+}
+
+.due-date mat-icon {
+  font-size: 14px;
+  height: 14px;
+  width: 14px;
+  margin-right: 4px;
+}
+
+.priority {
+  padding: 2px 6px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.priority-high {
+  background-color: #ffebee;
+  color: #d32f2f;
+}
+
+.priority-medium {
+  background-color: #fff8e1;
+  color: #ffa000;
+}
+
+.priority-low {
+  background-color: #e8f5e9;
+  color: #388e3c;
+}
+
+.assignee {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 12px;
+  color: #616161;
+}
+
+.assignee mat-icon {
+  font-size: 14px;
+  height: 14px;
+  width: 14px;
+  margin-right: 4px;
+}
+
+.add-task-btn {
+  margin: 8px;
+}
+
+.add-column-container {
+  display: flex;
+  align-items: flex-start;
+  margin: 0;
+}
+
+.add-column-btn {
+  height: 48px;
+  white-space: nowrap;
+}
+
+.empty-column {
+  text-align: center;
+  padding: 16px;
+  color: #9e9e9e;
+  font-style: italic;
+}
+
+/* Drag and drop styling */
+.cdk-drag-preview {
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.cdk-drag-placeholder {
+  opacity: 0;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.tasks-container.cdk-drop-list-dragging .task-item:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

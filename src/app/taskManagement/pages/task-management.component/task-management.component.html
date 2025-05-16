@@ -1,0 +1,89 @@
+<!-- task-management.component.html -->
+<div class="task-board-container">
+  <mat-toolbar color="primary">
+    <span>{{ currentBoard?.title || 'Task Management Board' }}</span>
+    <span class="spacer"></span>
+    <button mat-icon-button (click)="addColumn()">
+      <mat-icon>add</mat-icon>
+    </button>
+  </mat-toolbar>
+
+  <div class="board-content">
+    <div
+      cdkDropListGroup
+      class="board-columns-container">
+
+      <div
+        *ngFor="let column of currentBoard?.columns"
+        class="column-container">
+
+        <div class="column-header">
+          <h2>{{ column.title }}</h2>
+          <button mat-icon-button color="warn" (click)="deleteColumn(column)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+
+        <div
+          cdkDropList
+          [cdkDropListData]="column.tasks"
+          [id]="column.id"
+          class="tasks-container"
+          (cdkDropListDropped)="drop($event)">
+
+          <div
+            *ngFor="let task of column.tasks"
+            class="task-item"
+            cdkDrag
+            (click)="editTask(task)">
+
+            <div class="task-content">
+              <h3>{{ task.title }}</h3>
+              <p>{{ task.description }}</p>
+
+              <div class="task-meta">
+                <div *ngIf="task.dueDate" class="due-date">
+                  <mat-icon>schedule</mat-icon>
+                  {{ task.dueDate | date:'medium' }}
+                </div>
+
+                <div *ngIf="task.priority" class="priority" [ngClass]="'priority-' + task.priority.toLowerCase()">
+                  {{ task.priority }}
+                </div>
+              </div>
+
+              <div *ngIf="task.assignee" class="assignee">
+                <mat-icon>person</mat-icon>
+                {{ task.assignee }}
+              </div>
+            </div>
+          </div>
+
+          <!-- Empty column message -->
+          <div *ngIf="column.tasks.length === 0" class="empty-column">
+            No tasks
+          </div>
+        </div>
+
+        <button
+          mat-flat-button
+          color="primary"
+          class="add-task-btn"
+          (click)="addTask(column.id)">
+          <mat-icon>add</mat-icon> Add Task
+        </button>
+      </div>
+
+      <!-- Add new column button -->
+      <div class="add-column-container">
+        <button
+          mat-stroked-button
+          color="primary"
+          class="add-column-btn"
+          (click)="addColumn()">
+          <mat-icon>add</mat-icon> Add Column
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
