@@ -1,0 +1,25 @@
+.quote-container{
+  width: 100%;
+  background: #fff;
+}
+
+.title{
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.action-buttons button{
+  margin-right: 8px;
+  background-color: #3A506B;
+  padding: 4px;
+  border-radius: 8px;
+  color: white;
+}
+
+.action-buttons button:hover{
+  cursor: pointer;
+}
+
+.quote-manage{
+  padding: 32px 24px;
+}
