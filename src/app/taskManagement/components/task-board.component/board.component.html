@@ -1,0 +1,18 @@
+<!-- task-board.component.html -->
+<mat-card class="board-card" (click)="selectBoard()">
+  <mat-card-content class="board-content">
+    <div class="board-title">{{ board.title }}</div>
+    <div class="board-description">{{ board.description }}</div>
+
+    <div class="board-footer">
+      <div class="column-count">
+        <mat-icon>view_week</mat-icon>
+        {{ board.columns?.length || 0 }} columns
+      </div>
+      <div class="task-count">
+        <mat-icon>assignment</mat-icon>
+        {{ board.taskCount || 0 }} tasks
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

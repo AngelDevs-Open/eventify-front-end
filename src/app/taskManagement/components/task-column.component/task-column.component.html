@@ -1,0 +1,34 @@
+<!-- task-column.component.html -->
+<div class="column-container">
+  <div class="column-header">
+    <h2 (click)="editColumnTitle()">{{ column.title }}</h2>
+    <div class="column-actions">
+      <button mat-icon-button color="warn" (click)="onDeleteColumn()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div
+    cdkDropList
+    [cdkDropListData]="column.tasks"
+    [id]="column.id"
+    class="tasks-container"
+    (cdkDropListDropped)="onDrop($event)">
+
+    <ng-content></ng-content>
+
+    <!-- Empty column message -->
+    <div *ngIf="column.tasks?.length === 0" class="empty-column">
+      No tasks
+    </div>
+  </div>
+
+  <button
+    mat-flat-button
+    color="primary"
+    class="add-task-btn"
+    (click)="onAddTask()">
+    <mat-icon>add</mat-icon> Add Task
+  </button>
+</div>
