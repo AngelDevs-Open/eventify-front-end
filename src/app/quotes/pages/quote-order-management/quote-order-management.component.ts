@@ -1,4 +1,4 @@
-import {Component, inject, Input, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {
   MatCell,
   MatCellDef,
@@ -48,7 +48,7 @@ export class QuoteOrderManagementComponent implements OnInit {
 
   protected quoteOrderData!: QuoteOrder;
   protected eventDate !:Date;
-  protected serviceItemsForQuoteOrder: ServiceItem[] = [];
+  protected serviceItemsForQuoteOrder: ServiceItem[]=[];
 
   private serviceItemService: ServiceItemService = inject(ServiceItemService);
   private quoteService: QuoteOrderService = inject(QuoteOrderService);
@@ -74,8 +74,11 @@ export class QuoteOrderManagementComponent implements OnInit {
     let stringDate:string= this.quoteOrderData.eventDate??'';
     this.eventDate = new Date(stringDate);
     this.serviceItemService.getByQuoteId(this.quoteOrderData.id).subscribe((response: Array<ServiceItem>)=>{
+      console.log('Id: ',this.quoteOrderData.id);
       this.serviceItemsForQuoteOrder = response;
+      console.log(this.serviceItemsForQuoteOrder);
     })
+    console.log(this.serviceItemsForQuoteOrder)
   }
 
   protected compareServices(services: ServiceItem[]){
@@ -110,7 +113,6 @@ export class QuoteOrderManagementComponent implements OnInit {
 
   private resetEditState():void{
     this.quoteOrderData = new QuoteOrder({});
-    this.serviceItemsForQuoteOrder=[]
     this.editMode = false;
   }
 
@@ -128,6 +130,7 @@ export class QuoteOrderManagementComponent implements OnInit {
 
   protected onServiceItemsAddRequested(items:ServiceItem[]){
     this.serviceItemsForQuoteOrder = items;
+    console.log(this.serviceItemsForQuoteOrder)
     this.serviceItemsForQuoteOrder.forEach(item => {
       this.createServiceItem(item);
     })
@@ -136,6 +139,7 @@ export class QuoteOrderManagementComponent implements OnInit {
 
   protected onServiceItemsUpdateRequested(items:ServiceItem[]){
     this.serviceItemService.getByQuoteId(this.quoteOrderData.id).subscribe((response: Array<ServiceItem>)=>{
+      console.log('Id: ',this.quoteOrderData.id);
       this.serviceItemsForQuoteOrder = response;
       console.log(this.serviceItemsForQuoteOrder);
     });
