@@ -93,7 +93,10 @@ export class QuoteOrderManagementComponent implements OnInit {
           break;
         }
       }
-      if(!encontrado){console.log(`Eliminar: ${service1.id}`);}
+      if(!encontrado){
+        console.log(`Eliminar: ${service1.id}`);
+        this.deleteServiceItem(service1.id)
+      }
     }
 
     for(let service2 of services){

@@ -1,5 +1,5 @@
 <div class="form-container">
-  <p class="title">New Service</p>
+  <p class="title">{{ editMode?'Edit Service':'Create Service' }}</p>
   <form #serviceItemForm='ngForm' (submit)="onSubmit()">
     <div class="form-section">
       <mat-form-field appearance="outline">
@@ -30,7 +30,7 @@
       <ng-container>
         <div class="btn-content">
           <button  type="button" (click)="onCancel()" mat-raised-button style="background-color: #fff; color: #000;border: #3A506B">Cancel</button>
-          <button  type="submit" mat-raised-button style="background-color: #3A506B; color:#fff">Add New Service</button>
+          <button  type="submit" mat-raised-button style="background-color: #3A506B; color:#fff">{{ isEditMode()?'Edit Service':'Create Service'}}</button>
 
         </div>
       </ng-container>

@@ -57,14 +57,18 @@ export class QuoteOrderCreateAndEditComponent extends BaseFormComponent{
     {label:'Quinceanera', value:'Quinceanera'},
     {label:'Graduation', value:'Graduation'}
   ];
-  protected displayedColumns: string[] = ['id', 'description', 'quantity', 'unitPrice','totalPrice'];
+  protected displayedColumns: string[] = ['id', 'description', 'quantity', 'unitPrice','totalPrice','actions'];
   /** Array of services recieved from serviceItem Form*/
 
 
-  //Total Price Information for Quote Order
+    //Total Price Information for Quote Order
   protected totalPrice: number = 0;
 
   protected serviceFormDisabled:boolean = true;
+
+  //EditMode for Service Form Create and Edit
+  protected editModeService:boolean=false;
+  protected serviceData!:ServiceItem;
 
   @Input() quoteOrder !:QuoteOrder;
   @Input() editMode: boolean = false;
@@ -89,6 +93,11 @@ export class QuoteOrderCreateAndEditComponent extends BaseFormComponent{
     this.serviceFormDisabled=false;
   }
 
+  protected isEditModeService(item:ServiceItem){
+    this.editModeService=true;
+    this.serviceData=item;
+  }
+
   private resetEditState(){
     this.quoteOrder = new QuoteOrder({});
     this.eventDate=new Date();
@@ -97,9 +106,16 @@ export class QuoteOrderCreateAndEditComponent extends BaseFormComponent{
     this.serviceFormDisabled=true;
   }
 
+  private resetEditStateService(){
+    this.serviceData=new ServiceItem({});
+    this.editModeService=false
+  }
+
   private isValid=()=>this.quoteForm.valid;
 
   protected isEditMode= ()=> this.editMode;
+
+
 
   protected onSubmit(){
     if(this.isValid()){
@@ -124,6 +140,18 @@ export class QuoteOrderCreateAndEditComponent extends BaseFormComponent{
 
   protected onServiceItemAddRequested(item: ServiceItem){
     this.serviceItems = [...this.serviceItems, item];
+    console.log(this.serviceItems);
+  }
+
+  protected onServiceItemUpdateRequested(item:ServiceItem){
+    let index = this.serviceItems.findIndex(service => item.id !== service.id);
+    this.serviceItems[index]=item;
+    this.resetEditStateService();
+  }
+
+  protected onServiceItemDelete(id:string){
+    this.serviceItems =this.serviceItems.filter(service=>service.id !== id);
+
     console.log(this.serviceItems);
   }
 
