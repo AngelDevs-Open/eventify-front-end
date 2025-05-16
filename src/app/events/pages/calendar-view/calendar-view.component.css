@@ -1,0 +1,24 @@
+.calendar-view-container {
+  display: flex;
+  flex-direction: row;
+  height: 100vh; /* ajusta si tienes un layout ya con altura */
+  background-color: #f8f9fb;
+}
+
+/* Mini calendario */
+.mini-calendar-section {
+  width: 280px;
+  padding: 1rem;
+  background-color: white;
+  box-shadow: 1px 0 5px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid #ddd;
+  overflow-y: auto;
+}
+
+/* Calendario principal */
+.main-calendar-section {
+  flex: 1;
+  padding: 2rem;
+  background-color: #fff;
+  overflow: hidden;
+}
