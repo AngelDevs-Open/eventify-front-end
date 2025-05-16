@@ -1,3 +1,100 @@
 {
-
+  "quotes": [
+    {
+      "id": "14172500-5203-4ad7-8599-ebce8efbb054",
+      "title": "Quinceañero Angie Rojas",
+      "eventType": "Quinceanera",
+      "guestQuantity": 80,
+      "location": "Av El Sol 234",
+      "totalPrice": 1860,
+      "state": "Pending",
+      "eventDate": "05/29/2025"
+    },
+    {
+      "id": "19d1ab5b-d89c-449f-a262-330e47200438",
+      "title": "Conferencia de Ethical Hacking",
+      "eventType": "Conference",
+      "guestQuantity": 100,
+      "location": "Los Rosales",
+      "totalPrice": 2050,
+      "state": "Pending",
+      "eventDate": "05/31/2025"
+    },
+    {
+      "id": "bb180505-6901-4db4-a691-3c1ce6fa2238",
+      "title": "Graduacion Estudiantes Trilce 2025",
+      "eventType": "Graduation",
+      "guestQuantity": 100,
+      "location": "Calle Los Rosales 123",
+      "totalPrice": 1760,
+      "state": "Pending",
+      "eventDate": "07/30/2025"
+    }
+  ],
+  "services": [
+    {
+      "id": "c71b0ed5-31c9-46b8-8a4f-ae3b066a8c8e",
+      "description": "Catering - Comida para invitados",
+      "quantity": 80,
+      "unitPrice": 11,
+      "totalPrice": 880,
+      "quoteOrderId": "14172500-5203-4ad7-8599-ebce8efbb054"
+    },
+    {
+      "id": "6fdb5246-114e-4d73-ad20-c332b6a16d4c",
+      "description": "DJ y Parlantes",
+      "quantity": 1,
+      "unitPrice": 550,
+      "totalPrice": 550,
+      "quoteOrderId": "14172500-5203-4ad7-8599-ebce8efbb054"
+    },
+    {
+      "id": "d62ac56a-e155-49a3-ac1c-e4fc7f49dc64",
+      "description": "Decoracion",
+      "quantity": 1,
+      "unitPrice": 430,
+      "totalPrice": 430,
+      "quoteOrderId": "14172500-5203-4ad7-8599-ebce8efbb054"
+    },
+    {
+      "id": "a25e2cc6-6d49-4086-8f9a-16442fcafec5",
+      "description": "Catering - Almuerzos para invitados",
+      "quantity": 100,
+      "unitPrice": 11,
+      "totalPrice": 1100,
+      "quoteOrderId": "19d1ab5b-d89c-449f-a262-330e47200438"
+    },
+    {
+      "id": "ab72c1ed-801b-47f1-a81f-f40670c31965",
+      "description": "Decoracion",
+      "quantity": 1,
+      "unitPrice": 550,
+      "totalPrice": 550,
+      "quoteOrderId": "19d1ab5b-d89c-449f-a262-330e47200438"
+    },
+    {
+      "id": "28d108ec-94e8-4c4e-8413-d916c00e83d5",
+      "description": "Proyectores",
+      "quantity": 1,
+      "unitPrice": 400,
+      "totalPrice": 400,
+      "quoteOrderId": "19d1ab5b-d89c-449f-a262-330e47200438"
+    },
+    {
+      "id": "00507265-d36d-4ec7-818d-20dee594d224",
+      "description": "Catering",
+      "quantity": 100,
+      "unitPrice": 11,
+      "totalPrice": 1100,
+      "quoteOrderId": "bb180505-6901-4db4-a691-3c1ce6fa2238"
+    },
+    {
+      "id": "73873246-d055-4b02-a623-c2578e84c549",
+      "description": "Decoracion tematica",
+      "quantity": 1,
+      "unitPrice": 660,
+      "totalPrice": 660,
+      "quoteOrderId": "bb180505-6901-4db4-a691-3c1ce6fa2238"
+    }
+  ]
 }
