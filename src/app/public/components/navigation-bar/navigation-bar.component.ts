@@ -19,6 +19,7 @@ export class NavigationBarComponent {
   options=[
     {link: '/home',label:'toolbar.home'},
     {link:'/profile',label:'toolbar.profile'},
+    {link: '/calendar',label:'toolbar.calendar'},
     {link:'/events',label:'toolbar.events'},
     {link:'/tasks',label:'toolbar.tasks'},
     {link:'/quotes',label:'toolbar.quotes'},
