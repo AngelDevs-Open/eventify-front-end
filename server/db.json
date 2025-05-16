@@ -12,7 +12,7 @@
     },
     {
       "id": "19d1ab5b-d89c-449f-a262-330e47200438",
-      "title": "Conferencia de Ethical Hacking",
+      "title": "Conferencia de Ethical Hacking - 2025",
       "eventType": "Conference",
       "guestQuantity": 100,
       "location": "Los Rosales",
@@ -29,6 +29,16 @@
       "totalPrice": 1760,
       "state": "Pending",
       "eventDate": "07/30/2025"
+    },
+    {
+      "id": "613d0a63-657e-46b6-b69e-bb6595007604",
+      "title": "Boda de Rosa Morales",
+      "eventType": "Wedding",
+      "guestQuantity": 100,
+      "location": "Av El Sol 234",
+      "totalPrice": 600,
+      "state": "Pending",
+      "eventDate": "05/30/2025"
     }
   ],
   "services": [
@@ -95,6 +105,14 @@
       "unitPrice": 660,
       "totalPrice": 660,
       "quoteOrderId": "bb180505-6901-4db4-a691-3c1ce6fa2238"
+    },
+    {
+      "id": "68d851ca-63ac-48dc-821f-5141648365b4",
+      "description": "Servicio de Decoracion",
+      "quantity": 1,
+      "unitPrice": 600,
+      "totalPrice": 600,
+      "quoteOrderId": "613d0a63-657e-46b6-b69e-bb6595007604"
     }
   ]
 }
