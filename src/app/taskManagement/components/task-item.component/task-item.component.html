@@ -1,0 +1,32 @@
+<!-- task-item.component.html -->
+<div class="task-item" cdkDrag (click)="onEditTask()">
+  <div class="task-content">
+    <h3>{{ task.title }}</h3>
+    <p>{{ task.description }}</p>
+
+    <div class="task-labels" *ngIf="task.labels && task.labels.length > 0">
+      <span class="task-label" *ngFor="let label of task.labels">
+        {{ label }}
+      </span>
+    </div>
+
+    <div class="task-meta">
+      <div *ngIf="task.dueDate" class="due-date">
+        <mat-icon>schedule</mat-icon>
+        {{ task.dueDate | date:'shortDate' }}
+      </div>
+
+      <div
+        *ngIf="task.priority"
+        class="priority"
+        [ngClass]="getPriorityClass()">
+        {{ task.priority }}
+      </div>
+    </div>
+
+    <div *ngIf="task.assignee" class="assignee">
+      <mat-icon>person</mat-icon>
+      {{ task.assignee }}
+    </div>
+  </div>
+</div>
