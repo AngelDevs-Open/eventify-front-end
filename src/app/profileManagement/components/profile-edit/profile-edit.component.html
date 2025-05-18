@@ -1,0 +1,103 @@
+<h2 mat-dialog-title>Editar Perfil</h2>
+<mat-dialog-content>
+  <form [formGroup]="profileForm" class="profile-form">
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Nombre</mat-label>
+        <input matInput formControlName="name">
+        <mat-error *ngIf="profileForm.get('name')?.hasError('required')">
+          El nombre es obligatorio
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Empresa</mat-label>
+        <input matInput formControlName="company">
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email" type="email">
+        <mat-error *ngIf="profileForm.get('email')?.hasError('email')">
+          Formato de email inválido
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Teléfono</mat-label>
+        <input matInput formControlName="phone">
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Ubicación</mat-label>
+        <input matInput formControlName="location">
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Especialidades</mat-label>
+        <mat-chip-grid #chipGrid>
+          <mat-chip-row *ngFor="let specialty of specialties; let i = index"
+                        (removed)="removeSpecialty(i)">
+            {{specialty}}
+            <button matChipRemove [attr.aria-label]="'remove ' + specialty">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+          <input placeholder="Nueva especialidad..."
+                 [matChipInputFor]="chipGrid"
+                 (matChipInputTokenEnd)="addSpecialty($event)">
+        </mat-chip-grid>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <mat-form-field appearance="outline">
+        <mat-label>Especialidades</mat-label>
+        <mat-chip-grid #chipGrid>
+          <mat-chip-row *ngFor="let specialty of specialties; let i = index"
+                        (removed)="removeSpecialty(i)">
+            {{specialty}}
+            <button matChipRemove [attr.aria-label]="'remove ' + specialty">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip-row>
+          <input placeholder="Nueva especialidad..."
+                 [matChipInputFor]="chipGrid"
+                 (matChipInputTokenEnd)="addSpecialty($event)">
+        </mat-chip-grid>
+      </mat-form-field>
+    </div>
+
+    <div class="form-row">
+      <div class="photo-upload">
+        <h3>Foto de perfil</h3>
+        <div class="preview-container">
+          <img *ngIf="photoPreview" [src]="photoPreview" alt="Vista previa">
+          <div *ngIf="!photoPreview" class="placeholder-preview">Sin foto</div>
+        </div>
+        <button type="button" mat-stroked-button (click)="fileInput.click()">
+          Seleccionar foto
+        </button>
+        <input hidden type="file" #fileInput (change)="onFileSelected($event)" accept="image/*">
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancelar</button>
+  <button mat-raised-button color="primary" [disabled]="profileForm.invalid || isSubmitting"
+          (click)="saveProfile()">
+    <mat-spinner *ngIf="isSubmitting" diameter="20" class="spinner"></mat-spinner>
+    <span *ngIf="!isSubmitting">Guardar</span>
+  </button>
+</mat-dialog-actions>
