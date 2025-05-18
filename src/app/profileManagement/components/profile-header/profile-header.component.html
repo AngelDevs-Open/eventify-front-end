@@ -1,0 +1,24 @@
+<div class="profile-header">
+  <div class="profile-info">
+    <div class="profile-avatar">
+      <img *ngIf="profile.photoUrl" [src]="profile.photoUrl" alt="Foto de perfil">
+      <div *ngIf="!profile.photoUrl" class="placeholder-avatar">Foto</div>
+    </div>
+    <div class="profile-details">
+      <h2>{{ profile.name }}</h2>
+      <p class="company">{{ profile.company }}</p>
+      <div class="role-badge">{{ profile.role }}</div>
+      <p class="stats">Eventos organizados: {{ profile.eventsOrganized }}</p>
+      <p class="rating">
+        Valoración media:
+        <span class="stars">
+          <mat-icon *ngFor="let star of getStars(profile.rating)">{{ star }}</mat-icon>
+        </span>
+        ({{ profile.rating }})
+      </p>
+    </div>
+  </div>
+  <button mat-raised-button color="primary" (click)="openEditDialog()">
+    Editar perfil
+  </button>
+</div>

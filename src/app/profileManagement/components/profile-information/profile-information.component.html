@@ -1,0 +1,20 @@
+<div class="information-container">
+  <h3>Información del perfil</h3>
+
+  <div class="info-grid">
+    <div class="info-label">Email:</div>
+    <div class="info-value">{{ profile.email }}</div>
+
+    <div class="info-label">Teléfono:</div>
+    <div class="info-value">{{ profile.phone }}</div>
+
+    <div class="info-label">Ubicación:</div>
+    <div class="info-value">{{ profile.location }}</div>
+
+    <div class="info-label">Especialidades:</div>
+    <div class="info-value">{{ profile.specialties.join(', ') }}</div>
+
+    <div class="info-label">Descripción:</div>
+    <div class="info-value description">{{ profile.description || 'Sin descripción' }}</div>
+  </div>
+</div>
