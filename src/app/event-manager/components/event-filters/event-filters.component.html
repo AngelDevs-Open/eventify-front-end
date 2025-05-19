@@ -1,0 +1,80 @@
+<div class="filters-container">
+  <div class="basic-filters">
+    <mat-form-field appearance="outline" class="search-field">
+      <mat-label>{{ 'EVENTS.SEARCH' | translate }}</mat-label>
+      <input
+        matInput
+        [(ngModel)]="filters.searchText"
+        (input)="onSearchChange()"
+        placeholder="{{ 'EVENTS.SEARCH_PLACEHOLDER' | translate }}"
+      >
+      <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>{{ 'EVENTS.FILTER_BY' | translate }}</mat-label>
+      <mat-select [(ngModel)]="filters.filterType" (selectionChange)="onFilterTypeChange()">
+        <mat-option *ngFor="let option of filterOptions" [value]="option.value">
+          {{ option.label | translate }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <button
+      mat-button
+      color="primary"
+      (click)="onToggleAdvancedFilters()"
+      class="advanced-toggle-button"
+    >
+      <span>{{ (showAdvancedFilters ? 'EVENTS.HIDE_ADVANCED' : 'EVENTS.SHOW_ADVANCED') | translate }}</span>
+      <mat-icon>{{ showAdvancedFilters ? 'expand_less' : 'expand_more' }}</mat-icon>
+    </button>
+  </div>
+
+  <div class="advanced-filters" *ngIf="showAdvancedFilters">
+    <div class="filter-group">
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'EVENTS.STATUS' | translate }}</mat-label>
+        <mat-select [(ngModel)]="filters.statusFilter" (selectionChange)="onStatusFilterChange()">
+          <mat-option [value]="null">{{ 'EVENTS.ALL_STATUSES' | translate }}</mat-option>
+          <mat-option *ngFor="let status of statusOptions" [value]="status">
+            {{ status }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+    <div class="filter-group date-filters">
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'EVENTS.DATE_FROM' | translate }}</mat-label>
+        <input
+          matInput
+          [matDatepicker]="pickerFrom"
+          [(ngModel)]="filters.dateFrom"
+          (dateChange)="onDateFilterChange()"
+        >
+        <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+        <mat-datepicker #pickerFrom></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>{{ 'EVENTS.DATE_TO' | translate }}</mat-label>
+        <input
+          matInput
+          [matDatepicker]="pickerTo"
+          [(ngModel)]="filters.dateTo"
+          (dateChange)="onDateFilterChange()"
+        >
+        <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+        <mat-datepicker #pickerTo></mat-datepicker>
+      </mat-form-field>
+    </div>
+
+    <div class="filter-actions">
+      <button mat-button color="warn" (click)="clearFilters()">
+        <mat-icon>clear</mat-icon>
+        {{ 'EVENTS.CLEAR_FILTERS' | translate }}
+      </button>
+    </div>
+  </div>
+</div>
