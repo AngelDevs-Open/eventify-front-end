@@ -88,23 +88,42 @@ export class EventCreateAndEditComponent implements OnInit {
 
     const formValues = this.eventForm.value;
 
+    // Convertir la fecha al formato correcto
+    let eventDate: Date;
+
+    if (formValues.date instanceof Date) {
+      eventDate = formValues.date;
+    } else {
+      try {
+        eventDate = new Date(formValues.date);
+      } catch (e) {
+        console.error('Error converting form date to Date object:', e);
+        return;
+      }
+    }
+
+    console.log('Form date value:', formValues.date);
+    console.log('Converted date object:', eventDate);
+    console.log('ISO date string:', eventDate.toISOString());
+
     if (this.isEditMode && this.data.event) {
       // Update existing event
       const updatedEvent = new EventEntity({
         ...this.data.event,
         title: formValues.title,
-        date: formValues.date,
+        date: eventDate,
         customerName: formValues.customerName,
         location: formValues.location,
         status: new EventStatus(formValues.status)
       });
 
+      console.log('Sending updated event to dialog result:', updatedEvent);
       this.dialogRef.close(updatedEvent);
     } else {
       // Create new event
       const newEvent = EventEntity.createNew(
         formValues.title,
-        formValues.date,
+        eventDate,
         formValues.customerName,
         formValues.location,
         this.data.userId
@@ -115,6 +134,7 @@ export class EventCreateAndEditComponent implements OnInit {
         newEvent.changeStatus(formValues.status);
       }
 
+      console.log('Sending new event to dialog result:', newEvent);
       this.dialogRef.close(newEvent);
     }
   }
