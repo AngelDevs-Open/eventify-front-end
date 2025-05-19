@@ -1,0 +1,56 @@
+<div class="event-management-container">
+  <div class="header">
+    <h1>{{ 'EVENTS.MY_EVENTS' | translate }}</h1>
+
+    <button mat-raised-button color="primary" (click)="openCreateEventDialog()">
+      <mat-icon>add</mat-icon>
+      {{ 'EVENTS.NEW_EVENT' | translate }}
+    </button>
+  </div>
+
+  <!-- Componente de filtros -->
+  <app-event-filters
+    [showAdvancedFilters]="showAdvancedFilters"
+    (filtersChanged)="applyEventFilters($event)"
+    (toggleAdvancedFilters)="toggleAdvancedFilters($event)">
+  </app-event-filters>
+
+  <div class="events-grid" *ngIf="!loading; else loadingTemplate">
+    <ng-container *ngIf="paginatedEvents.length > 0; else noEventsTemplate">
+      <app-event-card
+        *ngFor="let event of paginatedEvents"
+        [event]="event"
+        (edit)="openEditEventDialog($event)"
+        (delete)="openDeleteConfirmDialog($event)">
+      </app-event-card>
+    </ng-container>
+
+    <ng-template #noEventsTemplate>
+      <div class="no-events">
+        <mat-icon>event_busy</mat-icon>
+        <p>{{ 'EVENTS.NO_EVENTS' | translate }}</p>
+        <button mat-raised-button color="primary" (click)="openCreateEventDialog()">
+          {{ 'EVENTS.CREATE_FIRST_EVENT' | translate }}
+        </button>
+      </div>
+    </ng-template>
+  </div>
+
+  <ng-template #loadingTemplate>
+    <div class="loading">
+      <p>{{ 'COMMON.LOADING' | translate }}</p>
+    </div>
+  </ng-template>
+
+  <div class="pagination" *ngIf="filteredEvents.length > pageSize">
+    <button mat-button (click)="previousPage()" [disabled]="currentPage === 1">
+      <mat-icon>chevron_left</mat-icon>
+      {{ 'COMMON.PREVIOUS' | translate }}
+    </button>
+
+    <button mat-button (click)="nextPage()" [disabled]="!hasMorePages">
+      {{ 'COMMON.NEXT' | translate }}
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
+</div>
