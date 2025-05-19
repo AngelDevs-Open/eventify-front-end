@@ -7,5 +7,60 @@
     "quotes": "Quotes",
     "messages": "Messages",
     "subscriptions": "Subscriptions"
+  },
+  "COMMON": {
+    "EDIT": "Edit",
+    "DELETE": "Delete",
+    "CANCEL": "Cancel",
+    "SAVE": "Save",
+    "UPDATE": "Update",
+    "CLOSE": "Close",
+    "PREVIOUS": "Previous",
+    "NEXT": "Next",
+    "LOADING": "Loading..."
+  },
+  "VALIDATIONS": {
+    "REQUIRED": "This field is required"
+  },
+  "EVENTS": {
+    "MY_EVENTS": "My Events",
+    "NEW_EVENT": "New Event",
+    "SEARCH": "Search events",
+    "ALL": "All",
+    "RECENT": "Recent",
+    "OLDEST": "Oldest first",
+    "ALPHABETICAL": "Alphabetical",
+    "CUSTOMER": "Customer",
+    "PLACE": "Place",
+    "TITLE": "Title",
+    "DATE": "Date",
+    "STATUS": "Status",
+    "ACTIVE": "Active",
+    "TO_BE_CONFIRMED": "To be confirmed",
+    "CANCELED": "Canceled",
+    "CREATE_EVENT": "Create Event",
+    "EDIT_EVENT": "Edit Event",
+    "CONFIRM_DELETE_TITLE": "Delete Event",
+    "CONFIRM_DELETE": "Are you sure you want to delete the event \"{{title}}\"?",
+    "EVENT_CREATED": "Event created successfully",
+    "EVENT_UPDATED": "Event updated successfully",
+    "EVENT_DELETED": "Event deleted successfully",
+    "NO_EVENTS": "You don't have any events yet",
+    "CREATE_FIRST_EVENT": "Create your first event",
+    "FILTER_BY": "Filter by",
+    "SHOW_ADVANCED": "Show advanced filters",
+    "HIDE_ADVANCED": "Hide advanced filters",
+    "ALL_STATUSES": "All statuses",
+    "DATE_FROM": "From date",
+    "DATE_TO": "To date",
+    "CLEAR_FILTERS": "Clear filters",
+    "SEARCH_PLACEHOLDER": "Search by title, customer or location"
+  },
+  "ERRORS": {
+    "LOADING_EVENTS": "Error loading events",
+    "CREATE_EVENT": "Error creating event",
+    "UPDATE_EVENT": "Error updating event",
+    "DELETE_EVENT": "Error deleting event"
   }
+
 }

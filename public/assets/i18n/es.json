@@ -7,5 +7,60 @@
     "quotes": "Cotizaciones",
     "messages": "Mensajes",
     "subscriptions": "Suscripciones"
+  },
+  "COMMON": {
+    "EDIT": "Editar",
+    "DELETE": "Eliminar",
+    "CANCEL": "Cancelar",
+    "SAVE": "Guardar",
+    "UPDATE": "Actualizar",
+    "CLOSE": "Cerrar",
+    "PREVIOUS": "Anterior",
+    "NEXT": "Siguiente",
+    "LOADING": "Cargando..."
+  },
+  "VALIDATIONS": {
+    "REQUIRED": "Este campo es obligatorio"
+  },
+  "EVENTS": {
+    "MY_EVENTS": "Mis Eventos",
+    "NEW_EVENT": "Nuevo Evento",
+    "SEARCH": "Buscar eventos",
+    "ALL": "Todos",
+    "RECENT": "Recientes",
+    "OLDEST": "Más antiguos primero",
+    "ALPHABETICAL": "Alfabético",
+    "CUSTOMER": "Cliente",
+    "PLACE": "Lugar",
+    "TITLE": "Título",
+    "DATE": "Fecha",
+    "STATUS": "Estado",
+    "ACTIVE": "Activo",
+    "TO_BE_CONFIRMED": "Por confirmar",
+    "CANCELED": "Cancelado",
+    "CREATE_EVENT": "Crear Evento",
+    "EDIT_EVENT": "Editar Evento",
+    "CONFIRM_DELETE_TITLE": "Eliminar Evento",
+    "CONFIRM_DELETE": "¿Estás seguro de que deseas eliminar el evento \"{{title}}\"?",
+    "EVENT_CREATED": "Evento creado exitosamente",
+    "EVENT_UPDATED": "Evento actualizado exitosamente",
+    "EVENT_DELETED": "Evento eliminado exitosamente",
+    "NO_EVENTS": "Aún no tienes eventos",
+    "CREATE_FIRST_EVENT": "Crea tu primer evento",
+    "FILTER_BY": "Filtrar por",
+    "SHOW_ADVANCED": "Mostrar filtros avanzados",
+    "HIDE_ADVANCED": "Ocultar filtros avanzados",
+    "ALL_STATUSES": "Todos los estados",
+    "DATE_FROM": "Desde fecha",
+    "DATE_TO": "Hasta fecha",
+    "CLEAR_FILTERS": "Limpiar filtros",
+    "SEARCH_PLACEHOLDER": "Buscar por título, cliente o ubicación"
+  },
+  "ERRORS": {
+    "LOADING_EVENTS": "Error al cargar eventos",
+    "CREATE_EVENT": "Error al crear evento",
+    "UPDATE_EVENT": "Error al actualizar evento",
+    "DELETE_EVENT": "Error al eliminar evento"
   }
+
 }
