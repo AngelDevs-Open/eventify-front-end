@@ -1,0 +1,62 @@
+<h2 mat-dialog-title>
+  {{ isEditMode ? ('EVENTS.EDIT_EVENT' | translate) : ('EVENTS.CREATE_EVENT' | translate) }}
+</h2>
+
+<form [formGroup]="eventForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>{{ 'EVENTS.TITLE' | translate }}</mat-label>
+      <input matInput formControlName="title" required>
+      <mat-error *ngIf="eventForm.get('title')?.hasError('required')">
+        {{ 'VALIDATIONS.REQUIRED' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>{{ 'EVENTS.DATE' | translate }}</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="date" required>
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+      <mat-error *ngIf="eventForm.get('date')?.hasError('required')">
+        {{ 'VALIDATIONS.REQUIRED' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>{{ 'EVENTS.CUSTOMER' | translate }}</mat-label>
+      <input matInput formControlName="customerName" required>
+      <mat-error *ngIf="eventForm.get('customerName')?.hasError('required')">
+        {{ 'VALIDATIONS.REQUIRED' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>{{ 'EVENTS.PLACE' | translate }}</mat-label>
+      <input matInput formControlName="location" required>
+      <mat-error *ngIf="eventForm.get('location')?.hasError('required')">
+        {{ 'VALIDATIONS.REQUIRED' | translate }}
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>{{ 'EVENTS.STATUS' | translate }}</mat-label>
+      <mat-select formControlName="status" required>
+        <mat-option *ngFor="let status of statusOptions" [value]="status">
+          {{ status }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="eventForm.get('status')?.hasError('required')">
+        {{ 'VALIDATIONS.REQUIRED' | translate }}
+      </mat-error>
+    </mat-form-field>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="onCancel()">
+      {{ 'COMMON.CANCEL' | translate }}
+    </button>
+    <button mat-raised-button color="primary" type="submit" [disabled]="eventForm.invalid">
+      {{ isEditMode ? ('COMMON.UPDATE' | translate) : ('COMMON.SAVE' | translate) }}
+    </button>
+  </mat-dialog-actions>
+</form>
