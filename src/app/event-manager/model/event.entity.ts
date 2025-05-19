@@ -22,12 +22,24 @@ export class EventEntity implements Event {
   constructor(event: Event) {
     this.id = event.id;
     this.title = event.title;
-    this.date = event.date instanceof Date ? event.date : new Date(event.date);
+
+    // Manejo mejorado de la fecha
+    if (event.date instanceof Date) {
+      this.date = event.date;
+    } else {
+      this.date = new Date(event.date);
+    }
+
     this.customerName = event.customerName;
     this.location = event.location;
-    this.status = event.status instanceof EventStatus
-      ? event.status
-      : EventStatus.fromString(event.status as string);
+
+    // Manejo mejorado del estado
+    if (event.status instanceof EventStatus) {
+      this.status = event.status;
+    } else {
+      this.status = EventStatus.fromString(event.status as string);
+    }
+
     this.userId = event.userId;
   }
 
@@ -67,11 +79,31 @@ export class EventEntity implements Event {
     return this.date.toLocaleDateString();
   }
 
-  toJSON(): Event {
+  toJSON(): any {
+    // Asegurarnos de que la fecha esté en formato ISO 8601
+    let dateValue: string;
+
+    if (this.date instanceof Date) {
+      dateValue = this.date.toISOString();
+    } else if (typeof this.date === 'string') {
+      try {
+        const dateObj = new Date(this.date);
+        dateValue = dateObj.toISOString();
+      } catch (e) {
+        console.error('Error converting date string to ISO format:', e);
+        dateValue = String(this.date);
+      }
+    } else {
+      dateValue = String(this.date);
+    }
+
+    console.log('Original date:', this.date);
+    console.log('Formatted date for JSON:', dateValue);
+
     return {
       id: this.id,
       title: this.title,
-      date: this.date.toISOString(),
+      date: dateValue,
       customerName: this.customerName,
       location: this.location,
       status: this.status.toString(),

@@ -1,17 +1,60 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import { Observable, catchError, tap, throwError } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Event, EventEntity } from '../model/event.entity';
 import { BaseService } from '../../shared/services/base.service';
 import { EventStatusEnum } from '../model/event-status.entity';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EventService extends BaseService<Event> {
+  private apiUrl = `${environment.serverBaseUrl}/events`;
+
   constructor() {
     super();
-    this.resourceEndpoint = '/events'; // Establecer el endpoint de recursos para eventos
+    this.resourceEndpoint = '/events';
+    console.log('Events API URL:', this.resourcePath());
+  }
+
+  // Método mejorado para crear eventos directamente, evitando problemas con BaseService
+  createEventDirect(event: EventEntity): Observable<EventEntity> {
+    const http = new HttpClient(this.http['handler']);
+    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+
+    // Crear un objeto limpio para enviar al servidor
+    const eventData = {
+      id: event.id,
+      title: event.title,
+      date: event.date instanceof Date ? event.date.toISOString() : event.date,
+      customerName: event.customerName,
+      location: event.location,
+      status: typeof event.status === 'string' ? event.status : event.status.toString(),
+      userId: event.userId
+    };
+
+    console.log('Creating event directly at URL:', this.apiUrl);
+    console.log('Event data to send:', eventData);
+
+    return http.post<Event>(this.apiUrl, eventData, { headers }).pipe(
+      tap(response => console.log('Create event response:', response)),
+      map(response => new EventEntity(response)),
+      catchError(this.handleDirectError)
+    );
+  }
+
+  private handleDirectError(error: HttpErrorResponse) {
+    console.error('API Error details:', {
+      status: error.status,
+      statusText: error.statusText,
+      url: error.url,
+      error: error.error,
+      message: error.message
+    });
+
+    return throwError(() => new Error(`Error in API call: ${error.message}`));
   }
 
   // Métodos específicos para eventos
@@ -64,13 +107,14 @@ export class EventService extends BaseService<Event> {
   }
 
   override create(event: Event): Observable<Event> {
+    console.log('Using BaseService create with data:', event);
     return super.create(event);
   }
 
   createEntity(event: EventEntity): Observable<EventEntity> {
-    return this.create(event.toJSON()).pipe(
-      map(createdEvent => new EventEntity(createdEvent))
-    );
+    console.log('Creating entity with data:', event);
+    // Usar el método directo en lugar del BaseService
+    return this.createEventDirect(event);
   }
 
   override update(id: string, event: Event): Observable<Event> {
