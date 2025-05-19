@@ -1,0 +1,40 @@
+<mat-card class="event-card">
+  <mat-card-header>
+    <mat-card-title>{{ event.title }}</mat-card-title>
+    <mat-card-subtitle>{{ event.formattedDate() }}</mat-card-subtitle>
+
+    <button mat-icon-button [matMenuTriggerFor]="menu" class="more-button">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="onEdit()">
+        <mat-icon>edit</mat-icon>
+        <span>{{ 'COMMON.EDIT' | translate }}</span>
+      </button>
+      <button mat-menu-item (click)="onDelete()">
+        <mat-icon>delete</mat-icon>
+        <span>{{ 'COMMON.DELETE' | translate }}</span>
+      </button>
+    </mat-menu>
+  </mat-card-header>
+
+  <mat-card-content>
+    <div class="event-info">
+      <p><strong>{{ 'EVENTS.CUSTOMER' | translate }}:</strong> {{ event.customerName }}</p>
+      <p><strong>{{ 'EVENTS.PLACE' | translate }}:</strong> {{ event.location }}</p>
+    </div>
+  </mat-card-content>
+
+  <mat-card-actions>
+    <div class="status-chip" [ngStyle]="{
+      'background-color': event.status.getBackgroundColor(),
+      'color': event.status.getColor()
+    }">
+      {{ event.status.toString() }}
+    </div>
+
+    <button mat-button color="primary" (click)="onEdit()">
+      {{ 'COMMON.EDIT' | translate }}
+    </button>
+  </mat-card-actions>
+</mat-card>
