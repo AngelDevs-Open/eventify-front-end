@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Event, EventEntity } from '../model/event.entity';
@@ -10,8 +9,9 @@ import { EventStatusEnum } from '../model/event-status.entity';
   providedIn: 'root'
 })
 export class EventService extends BaseService<Event> {
-  constructor(protected override http: HttpClient) {
-    super(); //
+  constructor() {
+    super();
+    this.resourceEndpoint = '/events'; // Establecer el endpoint de recursos para eventos
   }
 
   // Métodos específicos para eventos
@@ -22,24 +22,22 @@ export class EventService extends BaseService<Event> {
   }
 
   searchEvents(query: string): Observable<EventEntity[]> {
-    return this.getAll().pipe(
+    return this.getAllAsEntities().pipe(
       map(events => events
         .filter(event =>
           event.title.toLowerCase().includes(query.toLowerCase()) ||
           event.customerName.toLowerCase().includes(query.toLowerCase()) ||
           event.location.toLowerCase().includes(query.toLowerCase())
         )
-        .map(event => new EventEntity(event))
       )
     );
   }
 
   getRecentEvents(limit: number = 5): Observable<EventEntity[]> {
-    return this.getAll().pipe(
+    return this.getAllAsEntities().pipe(
       map(events => events
         .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
         .slice(0, limit)
-        .map(event => new EventEntity(event))
       )
     );
   }
