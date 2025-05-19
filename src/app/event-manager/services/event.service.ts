@@ -16,11 +16,8 @@ export class EventService extends BaseService<Event> {
 
   // Métodos específicos para eventos
   getEventsByStatus(status: EventStatusEnum): Observable<EventEntity[]> {
-    return this.getAll().pipe(
-      map(events => events
-        .filter(event => event.status === status)
-        .map(event => new EventEntity(event))
-      )
+    return this.getAllAsEntities().pipe(
+      map(events => events.filter(event => event.status.value === status))
     );
   }
 
