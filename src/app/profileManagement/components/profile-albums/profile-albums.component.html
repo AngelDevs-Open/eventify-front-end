@@ -1,4 +1,64 @@
 <div class="albums-container">
-  <h3>Álbumes</h3>
-  <p class="placeholder-text">Contenido de álbumes (a implementar)</p>
+  <div class="albums-header">
+    <h2>Photo Albums</h2>
+    <button mat-raised-button color="primary" (click)="createNewAlbum()">
+      <mat-icon>add</mat-icon> New Album
+    </button>
+  </div>
+
+  <!-- Loading spinner -->
+  <div *ngIf="loading" class="loading-container">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+
+  <!-- Error message -->
+  <div *ngIf="error && !albumPage" class="error-message">
+    <p>Unable to load albums. Please try again later.</p>
+    <button mat-raised-button color="primary" (click)="loadAlbums()">Retry</button>
+  </div>
+
+  <!-- Albums grid -->
+  <div *ngIf="albumPage && !loading" class="albums-grid">
+    <mat-card *ngFor="let album of albumPage.items" class="album-card">
+      <!-- Contenido del álbum -->
+      <div class="album-content" (click)="viewAlbum(album)">
+        <img mat-card-image [src]="album.coverImage" alt="{{ album.title }}" class="album-cover">
+        <mat-card-content>
+          <h3 class="album-title">{{ album.title }}</h3>
+          <p class="album-date">{{ album.date | date:'longDate' }}</p>
+          <p class="album-count">{{ album.photoCount }} photos</p>
+        </mat-card-content>
+      </div>
+
+      <!-- Botones de acción -->
+      <mat-card-actions>
+        <button mat-button color="primary" (click)="viewAlbum(album); $event.stopPropagation()">
+          <mat-icon>visibility</mat-icon> View
+        </button>
+        <button mat-button color="accent" (click)="editAlbum(album); $event.stopPropagation()">
+          <mat-icon>edit</mat-icon> Edit
+        </button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+
+  <!-- Empty state -->
+  <div *ngIf="albumPage && albumPage.items.length === 0 && !loading" class="empty-state">
+    <mat-icon>photo_album</mat-icon>
+    <p>No albums found</p>
+    <button mat-raised-button color="primary" (click)="createNewAlbum()">Create your first album</button>
+  </div>
+
+  <!-- Mostrar siempre el paginador si hay datos -->
+  <div *ngIf="albumPage && albumPage.items && albumPage.items.length > 0" class="pagination-container">
+    <p class="pagination-info">Showing {{ albumPage.items.length }} of {{ albumPage.totalItems || totalItemsForcing }} albums</p>
+    <mat-paginator
+      [length]="albumPage.totalItems || totalItemsForcing"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      [pageIndex]="pageIndex"
+      (page)="onPageChange($event)"
+      aria-label="Select page">
+    </mat-paginator>
+  </div>
 </div>
