@@ -13,3 +13,6 @@ h3 {
   color: #666;
   font-style: italic;
 }
+.price {
+  font-weight: bold;
+}
