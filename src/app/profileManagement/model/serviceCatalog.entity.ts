@@ -1,4 +1,4 @@
-export interface Service {
+export interface ServiceCatalog {
   id: number;
   profileId: number;
   name: string;
