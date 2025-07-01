@@ -1,4 +1,11 @@
 <div class="reviews-container">
   <h3>Reseñas</h3>
-  <p class="placeholder-text">Contenido de reseñas (a implementar)</p>
+  <div *ngIf="loading">Cargando...</div>
+  <mat-list *ngIf="!loading">
+    <mat-list-item *ngFor="let r of reviews">
+      <h4 matLine>{{ r.reviewer }} - {{ r.rating }}/5</h4>
+      <p matLine>{{ r.comment }}</p>
+      <p matLine class="date">{{ r.date | date:'mediumDate' }}</p>
+    </mat-list-item>
+  </mat-list>
 </div>
