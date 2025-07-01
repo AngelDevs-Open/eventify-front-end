@@ -1,5 +1,10 @@
 <div class="reviews-container">
-  <h3>Reseñas</h3>
+  <div class="reviews-header">
+    <h3>Reseñas</h3>
+    <button mat-raised-button color="primary" (click)="createReview()">
+      <mat-icon>add</mat-icon> New Review
+    </button>
+  </div>
   <div *ngIf="loading">Cargando...</div>
   <mat-list *ngIf="!loading">
     <mat-list-item *ngFor="let r of reviews">
