@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Service } from '../../model/serviceCatalog.entity';
+import { ServiceCatalog } from '../../model/serviceCatalog.entity';
 import { ServiceCatalogService } from '../../services/serviceCatalog.service';
 import { MatListModule } from '@angular/material/list';
 
@@ -12,7 +12,7 @@ import { MatListModule } from '@angular/material/list';
   styleUrls: ['./profile-services.component.css']
 })
 export class ProfileServicesComponent implements OnInit {
-  services: Service[] = [];
+  services: ServiceCatalog[] = [];
   loading = true;
   profileId = 1;
 
