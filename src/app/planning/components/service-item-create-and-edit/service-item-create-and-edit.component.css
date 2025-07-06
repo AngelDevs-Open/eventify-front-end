@@ -1,6 +1,7 @@
 
 
 .form-container{
+  box-sizing: border-box;
   background-color: #fff;
   width: 100%;
   padding: 16px 24px;
