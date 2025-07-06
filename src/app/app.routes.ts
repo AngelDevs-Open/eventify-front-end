@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import {HomeComponent} from './public/pages/home/home.component';
 import {CalendarViewComponent} from './events/pages/calendar-view/calendar-view.component';
 
-const QuoteManagementComponent = ()=> import('./quotes/pages/quote-order-management/quote-order-management.component').then(m => m.QuoteOrderManagementComponent);
+const QuoteManagementComponent = ()=> import('./planning/pages/quote-order-management/quote-order-management.component').then(m => m.QuoteOrderManagementComponent);
 
 const baseTitle= 'Eventify'
 
