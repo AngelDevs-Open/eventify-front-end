@@ -17,6 +17,8 @@ import {QuoteOrder} from '../../model/quote-order.entity';
 import {ServiceItem} from '../../model/service-item.entity';
 import {QuoteOrderService} from '../../services/quote-order.service';
 import {ServiceItemService} from '../../services/service-item.service';
+import {Router} from '@angular/router';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-quote-order-management',
@@ -33,14 +35,14 @@ import {ServiceItemService} from '../../services/service-item.service';
     MatHeaderCellDef,
     MatIcon,
     MatButton,
-    QuoteOrderCreateAndEditComponent
+    DatePipe
   ],
   templateUrl: './quote-order-management.component.html',
   styleUrl: './quote-order-management.component.css'
 })
 export class QuoteOrderManagementComponent implements OnInit {
 
-  protected displayedColumns: string[] = ['id','title','eventType','eventDate','totalPrice','state','actions'];
+  protected displayedColumns: string[] = ['quoteId','title','eventType','eventDate','totalPrice','state','actions'];
 
   protected dataSource:QuoteOrder[] = [];
 
@@ -53,7 +55,7 @@ export class QuoteOrderManagementComponent implements OnInit {
   private serviceItemService: ServiceItemService = inject(ServiceItemService);
   private quoteService: QuoteOrderService = inject(QuoteOrderService);
 
-  constructor(){
+  constructor(private router:Router){
     this.editMode = false;
     this.quoteOrderData = new QuoteOrder({});
   }
@@ -63,22 +65,24 @@ export class QuoteOrderManagementComponent implements OnInit {
   }
 
   private getAllQuoteOrders(): void {
-    this.quoteService.getAll().subscribe((response: Array<QuoteOrder>) => {
+    this.quoteService.getAllQuotesForOrganizer(1).subscribe((response: Array<QuoteOrder>) => {
       this.dataSource = response;
     })
   }
 
+  protected goToQuoteOrder(){
+    if(this.editMode){
+      this.router.navigate(['/quotes/edit']);
+    }else{
+      this.router.navigate(['/quotes/new']);
+    }
+  }
+
   protected onEditMode(item: QuoteOrder){
     this.editMode = true;
+
     this.quoteOrderData= item;
-    let stringDate:string= this.quoteOrderData.eventDate??'';
-    this.eventDate = new Date(stringDate);
-    this.serviceItemService.getByQuoteId(this.quoteOrderData.id).subscribe((response: Array<ServiceItem>)=>{
-      console.log('Id: ',this.quoteOrderData.id);
-      this.serviceItemsForQuoteOrder = response;
-      console.log(this.serviceItemsForQuoteOrder);
-    })
-    console.log(this.serviceItemsForQuoteOrder)
+    this.router.navigate(['/quotes',this.quoteOrderData.quoteId,'edit']);
   }
 
   protected compareServices(services: ServiceItem[]){
@@ -95,7 +99,7 @@ export class QuoteOrderManagementComponent implements OnInit {
       }
       if(!encontrado){
         console.log(`Eliminar: ${service1.id}`);
-        this.deleteServiceItem(service1.id)
+        this.deleteServiceItem(service1.quoteOrderId,service1.id)
       }
     }
 
@@ -141,8 +145,8 @@ export class QuoteOrderManagementComponent implements OnInit {
   }
 
   protected onServiceItemsUpdateRequested(items:ServiceItem[]){
-    this.serviceItemService.getByQuoteId(this.quoteOrderData.id).subscribe((response: Array<ServiceItem>)=>{
-      console.log('Id: ',this.quoteOrderData.id);
+    this.serviceItemService.getByQuoteId(this.quoteOrderData.quoteId).subscribe((response: Array<ServiceItem>)=>{
+      console.log('Id: ',this.quoteOrderData.quoteId);
       this.serviceItemsForQuoteOrder = response;
       console.log(this.serviceItemsForQuoteOrder);
     });
@@ -151,11 +155,12 @@ export class QuoteOrderManagementComponent implements OnInit {
   }
 
   onDeleteQuoteOrder(quote:QuoteOrder){
-    this.deleteQuoteOrder(quote.id);
-    this.serviceItemService.getByQuoteId(quote.id).subscribe((response: Array<ServiceItem>)=>{
+    this.deleteQuoteOrder(quote.quoteId);
+    this.serviceItemService.getByQuoteId(quote.quoteId).subscribe((response: Array<ServiceItem>)=>{
       let serviceItems:ServiceItem[] = response;
+      console.log(serviceItems);
       serviceItems.forEach(item => {
-        this.deleteServiceItem(item.id);
+        this.deleteServiceItem(quote.quoteId,item.id);
       });
     });
     this.resetEditState();
@@ -169,20 +174,20 @@ export class QuoteOrderManagementComponent implements OnInit {
   }
 
   private updateQuoteOrder(){
-    this.quoteService.update(this.quoteOrderData.id,this.quoteOrderData).subscribe((response:QuoteOrder)=>{
+    this.quoteService.update(this.quoteOrderData.quoteId,this.quoteOrderData).subscribe((response:QuoteOrder)=>{
       console.log('Quote Order updated successfully');
     })
   }
 
-  private deleteServiceItem(id:string){
-    this.serviceItemService.delete(id).subscribe(()=>{
+  private deleteServiceItem(quoteId:string,serviceItemId:string){
+    this.serviceItemService.deleteServiceItemByQuoteId(quoteId,serviceItemId).subscribe(()=>{
       console.log('service deleted successfully');
     })
   }
 
   private deleteQuoteOrder(id:string){
     this.quoteService.delete(id).subscribe(()=>{
-      this.dataSource=this.dataSource.filter((quote:QuoteOrder) => quote.id !== id);
+      this.dataSource=this.dataSource.filter((quote:QuoteOrder) => quote.quoteId !== id);
     })
   }
 

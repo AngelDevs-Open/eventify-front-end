@@ -3,15 +3,15 @@
     <p class="title">Quotes</p>
 
     <div>
-      <button mat-raised-button name="newQuote" style="background-color: #3A506B; color: #fff"><mat-icon>add-circle</mat-icon> New Quote</button>
+      <button mat-raised-button name="newQuote" (click)="goToQuoteOrder()" style="background-color: #3A506B; color: #fff"><mat-icon>add-circle</mat-icon> New Quote</button>
     </div>
 
     <div class="table-services">
       <table mat-table [dataSource]="dataSource">
 
-        <ng-container matColumnDef="id">
+        <ng-container matColumnDef="quoteId">
           <th mat-header-cell *matHeaderCellDef> ID </th>
-          <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          <td mat-cell *matCellDef="let element"> {{ element.quoteId }} </td>
         </ng-container>
 
         <!-- Name Column -->
@@ -29,7 +29,7 @@
         <!-- Symbol Column -->
         <ng-container matColumnDef="eventDate">
           <th mat-header-cell *matHeaderCellDef> Event Date </th>
-          <td mat-cell *matCellDef="let element"> {{element.eventDate}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.eventDate | date:'dd/MM/yyyy'}} </td>
         </ng-container>
 
 
@@ -54,9 +54,9 @@
       </table>
     </div>
   </div>
-  <app-quote-order-create-and-edit [eventDate]="eventDate" [quoteOrder]="quoteOrderData" [editMode]="editMode" [serviceItems]="serviceItemsForQuoteOrder"
+  <!--<app-quote-order-create-and-edit [eventDate]="eventDate" [quoteOrder]="quoteOrderData" [editMode]="editMode" [serviceItems]="serviceItemsForQuoteOrder"
                                    (quoteOrderUpdateRequested)="onQuoteOrderUpdateRequested($event)"
                                    (serviceItemsUpdateRequested)="onServiceItemsUpdateRequested($event)"
                                    (serviceItemsAddRequested)="onServiceItemsAddRequested($event)"
-                                   (quoteOrderAddRequested)="onQuoteOrderAddRequested($event)"></app-quote-order-create-and-edit>
+                                   (quoteOrderAddRequested)="onQuoteOrderAddRequested($event)"></app-quote-order-create-and-edit>-->
 </div>
