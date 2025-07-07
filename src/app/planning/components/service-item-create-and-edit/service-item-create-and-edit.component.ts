@@ -1,13 +1,9 @@
 import {
-  AfterViewInit,
   ChangeDetectorRef,
   Component,
-  EventEmitter,
   Inject,
-  Input,
   OnInit,
   Optional,
-  Output,
   ViewChild
 } from '@angular/core';
 import {MatFormFieldModule} from '@angular/material/form-field';
@@ -36,9 +32,8 @@ import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 export class ServiceItemCreateAndEditComponent extends BaseFormComponent implements OnInit{
   serviceItem:ServiceItem;
   editMode: boolean=false;
-  quoteOrderId!: string;
   serviceFormDisabled: boolean = true;
-
+  id!:string;
   description!: string;
   quantity!: number;
   unitPrice!: number;
@@ -46,35 +41,40 @@ export class ServiceItemCreateAndEditComponent extends BaseFormComponent impleme
 
   title!:string;
 
-
-  //@Output() protected serviceItemAddRequested = new EventEmitter<ServiceItem>();
-  //@Output() protected serviceItemUpdateRequested = new EventEmitter<ServiceItem>();
-  //@Output() protected cancelRequested = new EventEmitter<void>();
-
   @ViewChild('serviceItemForm',{static:false}) protected serviceItemForm !: NgForm;
 
-  constructor(private cdr: ChangeDetectorRef,@Optional() public dialogRef?: MatDialogRef<ServiceItemCreateAndEditComponent>, @Optional() @Inject(MAT_DIALOG_DATA) public data?:any
+  constructor(private cdr: ChangeDetectorRef,@Optional() public dialogRef?: MatDialogRef<ServiceItemCreateAndEditComponent>, @Inject(MAT_DIALOG_DATA) public data?:any
   ) {
     super();
     this.serviceItem= new ServiceItem({});
 
     if (this.data) {
+      this.id = this.data.id;
       this.description = this.data.description;
       this.quantity = this.data.quantity;
       this.unitPrice = this.data.unitPrice;
       this.totalPrice = this.data.totalPrice;
-      this.editMode = this.data.editMode;
+      this.editMode = data.editMode??false;
       this.title = this.data.title;
     }
     console.log(this.editMode)
+    console.log('Constructor editMode:', this.editMode);
+
+    setTimeout(() => {
+      console.log('AFTER 500ms editMode:', this.editMode);
+    }, 500);
   }
 
   ngOnInit(): void {
 
+    console.log("Data: ", this.data);
+    this.editMode = this.data?.editMode??false;
+    console.log('Edit Mode: ', this.editMode);
     if (!this.serviceItem) {
       this.serviceItem = new ServiceItem({});
     }
   }
+
 
 
   private resetEditState(){
@@ -94,21 +94,19 @@ export class ServiceItemCreateAndEditComponent extends BaseFormComponent impleme
 
   protected onSubmit(){
     if(this.isValid()){
-      /*this.serviceItem.quoteOrderId = this.quoteOrderId;
-      let emitter= this.isEditMode()?this.serviceItemUpdateRequested:this.serviceItemAddRequested;
-      emitter.emit(this.serviceItem);
-      console.log(this.serviceItem);
-      this.serviceItem = new ServiceItem({ quoteOrderId: this.quoteOrderId });*/
-      this.dialogRef?.close({description: this.description, quantity: this.quantity, unitPrice: this.unitPrice, totalPrice: this.totalPrice});
-      this.resetEditState();
+      if(this.editMode){
+        this.dialogRef?.close({id: this.id, description: this.description, quantity: this.quantity, unitPrice: this.unitPrice, totalPrice: this.totalPrice});
+      }else{
+        this.dialogRef?.close({description: this.description, quantity: this.quantity, unitPrice: this.unitPrice, totalPrice: this.totalPrice});
+      }
+
     }else{
       console.error('Invalid form data');
     }
   }
 
   protected onCancel(){
-    //this.cancelRequested.emit();
-    this.resetEditState();
+
   }
 
 }

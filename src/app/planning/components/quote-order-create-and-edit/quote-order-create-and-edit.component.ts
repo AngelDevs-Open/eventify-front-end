@@ -192,7 +192,18 @@ export class QuoteOrderCreateAndEditComponent extends BaseFormComponent implemen
   updateServiceItem(item:any){
     const dialogRef = this.dialog.open(ServiceItemCreateAndEditComponent,{width:'900px', data:{
         id:item.id,description:item.description, quantity:item.quantity, unitPrice:item.unitPrice, totalPrice:item.totalPrice,editMode:true, title:'Edit Service'}});
-
+    dialogRef.afterClosed().subscribe((result)=>{
+      if(result){
+        const idx = this.serviceItems.findIndex(o => o.id === item.id);
+        console.log(idx);
+        console.log(result);
+        if (idx > -1) {
+          this.serviceItems[idx] = new ServiceItem({...item,...result});
+          this.serviceItems = [...this.serviceItems];
+          this.cdr.markForCheck();
+        }
+      }
+    })
   }
 
 
