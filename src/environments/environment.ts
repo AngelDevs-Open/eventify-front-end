@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  serverBaseUrl: 'http://localhost:3000/api/v1',
+  serverBaseUrl: 'https://eventify-platfom-os.onrender.com/api/v1',
   quotesEndpointPath: '/quotes',
-  servicesEndpointPath: '/services'
+  servicesEndpointPath: '/service-items'
 };
