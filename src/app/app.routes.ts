@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import {HomeComponent} from './public/pages/home/home.component';
-import {CalendarViewComponent} from './events/pages/calendar-view/calendar-view.component';
+import {CalendarViewComponent} from './event-manager/pages/calendar-view/calendar-view.component';
 import { EventManagementComponent } from './event-manager/pages/event-management/event-management.component';
 
 
