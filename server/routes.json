@@ -1,5 +1,5 @@
 {
   "/api/v1/*": "/$1",
-  "/events":"/events",
-  "/events/:id": "/events/:id"
+  "/social-events":"/social-events",
+  "/social-events/:id": "/social-events/:id"
 }
