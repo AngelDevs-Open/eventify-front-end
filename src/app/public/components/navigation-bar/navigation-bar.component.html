@@ -6,6 +6,8 @@
       <a [routerLink]="option.link" routerLinkActive="active">{{option.label | translate}}</a>
     }
 
+    | <app-authentication-section/>
+
   </div>
   <app-language-switcher></app-language-switcher>
 </mat-toolbar>

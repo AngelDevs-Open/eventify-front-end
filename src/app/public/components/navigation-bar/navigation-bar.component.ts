@@ -3,6 +3,9 @@ import {MatToolbar} from '@angular/material/toolbar';
 import {LanguageSwitcherComponent} from '../language-switcher/language-switcher.component';
 import {TranslatePipe} from '@ngx-translate/core';
 import {RouterLink} from '@angular/router';
+import {
+  AuthenticationSectionComponent
+} from '../../../iam/components/authentication-section/authentication-section.component';
 
 @Component({
   selector: 'app-navigation-bar',
@@ -10,7 +13,8 @@ import {RouterLink} from '@angular/router';
     MatToolbar,
     LanguageSwitcherComponent,
     TranslatePipe,
-    RouterLink
+    RouterLink,
+    AuthenticationSectionComponent
   ],
   templateUrl: './navigation-bar.component.html',
   styleUrl: './navigation-bar.component.css'
