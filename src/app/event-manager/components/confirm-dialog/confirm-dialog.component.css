@@ -1,0 +1,11 @@
+h2 {
+  margin-top: 0;
+}
+
+mat-dialog-content {
+  min-width: 300px;
+}
+
+mat-dialog-actions {
+  padding: 16px 0;
+}

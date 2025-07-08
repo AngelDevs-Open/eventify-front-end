@@ -1,0 +1,18 @@
+.calendar-view-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  height: 100vh;
+  background-color: #f8f9fb;
+  padding-top: 1rem;
+}
+/* Calendario principal */
+.main-calendar-section {
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 2rem;
+  width: 80%;
+  max-width: 1200px; /*Limite para pantallas grandes */
+  overflow: auto;
+  box-sizing: border-box;
+}
