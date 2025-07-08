@@ -21,7 +21,7 @@
   <mat-card-content>
     <div class="event-info">
       <p><strong>{{ 'EVENTS.CUSTOMER' | translate }}:</strong> {{ event.customerName }}</p>
-      <p><strong>{{ 'EVENTS.PLACE' | translate }}:</strong> {{ event.location }}</p>
+      <p><strong>{{ 'EVENTS.PLACE' | translate }}:</strong> {{ event.place }}</p>
     </div>
   </mat-card-content>
 
@@ -36,5 +36,6 @@
     <button mat-button color="primary" (click)="onEdit()">
       {{ 'COMMON.EDIT' | translate }}
     </button>
+
   </mat-card-actions>
 </mat-card>

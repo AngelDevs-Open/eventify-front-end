@@ -50,7 +50,7 @@ export class MainCalendarComponent implements OnInit {
         title: `${e.title} - ${e.customerName}`,
         start: e.date,
         extendedProps: {
-          location: e.location,
+          location: e.place,
           status: e.status,
         }
       }));

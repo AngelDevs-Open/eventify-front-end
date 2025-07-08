@@ -50,7 +50,7 @@ export class EventManagementComponent implements OnInit {
   showAdvancedFilters: boolean = false;
 
   // Mock user ID - In a real app, get from auth service
-  userId: string = 'current-user-id';
+  userId: string = 'current';
 
   constructor(
     private eventService: EventService,
@@ -92,7 +92,7 @@ export class EventManagementComponent implements OnInit {
       result = result.filter(event =>
         event.title.toLowerCase().includes(search) ||
         event.customerName.toLowerCase().includes(search) ||
-        event.location.toLowerCase().includes(search)
+        event.place.toLowerCase().includes(search)
       );
     }
 
@@ -196,6 +196,8 @@ export class EventManagementComponent implements OnInit {
         this.updateEvent(result);
       }
     });
+
+
   }
 
   openDeleteConfirmDialog(event: EventEntity): void {
@@ -254,6 +256,8 @@ export class EventManagementComponent implements OnInit {
       }
     });
   }
+
+
 
   deleteEvent(event: EventEntity): void {
     this.eventService.delete(event.id).subscribe({
