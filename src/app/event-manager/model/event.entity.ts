@@ -5,9 +5,10 @@ export interface Event {
   title: string;
   date: Date | string;
   customerName: string;
-  location: string;
+  place: string;
   status: EventStatus | string;
   userId: string;
+
 }
 
 export class EventEntity implements Event {
@@ -15,7 +16,7 @@ export class EventEntity implements Event {
   title: string;
   date: Date;
   customerName: string;
-  location: string;
+  place: string;
   status: EventStatus;
   userId: string;
 
@@ -31,7 +32,7 @@ export class EventEntity implements Event {
     }
 
     this.customerName = event.customerName;
-    this.location = event.location;
+    this.place = event.place;
 
     // Manejo mejorado del estado
     if (event.status instanceof EventStatus) {
@@ -48,7 +49,7 @@ export class EventEntity implements Event {
       this.title &&
       this.date &&
       this.customerName &&
-      this.location &&
+      this.place &&
       this.status
     );
   }
@@ -105,7 +106,7 @@ export class EventEntity implements Event {
       title: this.title,
       date: dateValue,
       customerName: this.customerName,
-      location: this.location,
+      location: this.place,
       status: this.status.toString(),
       userId: this.userId
     };
@@ -115,7 +116,7 @@ export class EventEntity implements Event {
     title: string,
     date: Date,
     customerName: string,
-    location: string,
+    place: string,
     userId: string
   ): EventEntity {
     return new EventEntity({
@@ -123,7 +124,7 @@ export class EventEntity implements Event {
       title,
       date,
       customerName,
-      location,
+      place,
       status: new EventStatus(EventStatusEnum.TO_BE_CONFIRMED),
       userId
     });
