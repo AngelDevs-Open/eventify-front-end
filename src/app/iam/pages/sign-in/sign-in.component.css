@@ -1,0 +1,23 @@
+.sign-in-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.sign-in-card{
+  width: 30vw;
+  padding: 24px 16px;
+}
+
+.title{
+  width: 100%;
+  text-align: center;
+  font-size: 2em;
+  padding: 16px 0;
+}
+
+.form-content{
+  display: flex;
+  flex-direction: column;
+}
