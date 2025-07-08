@@ -1,59 +1,102 @@
-# EventifyFrontEnd
+# EventifyFrontEnd - Event Management Platform
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.11.
+[![Angular Version](https://img.shields.io/badge/Angular-19.2.11-%23DD0031)](https://angular.io/)
 
-## Development server
 
-To start a local development server, run:
+## Summary
+
+EventifyFrontEnd is an Angular application for comprehensive event management, developed with Angular CLI 19.2.11. Provides modern tools for creating, organizing, and managing events of any scale.
+
+## Key Features
+- **Complete event lifecycle management** from creation to execution
+- **Admin dashboard** with real-time metrics
+- **Integrated booking and ticketing system**
+- **Multilingual support** with i18n implementation
+- **Responsive design** for mobile devices
+- **API integration** for complementary services
+
+## System Requirements
+- Node.js v18+
+- npm v9+ or yarn v1.22+
+- Angular CLI 19.2.11
+
+## Initial Setup
+
+```bash
+# Clone repository
+git clone https://github.com/AngelDevs-Open/eventify-front-end.git
+
+# Install dependencies
+npm install
+
+# Set up environment variables
+cp src/environments/environment.example.ts src/environments/environment.ts
+```
+
+## Development Server
 
 ```bash
 ng serve
 ```
+Access the application at: [http://localhost:4200](http://localhost:4200)
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
-
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+## Production Build
 
 ```bash
-ng generate component component-name
+ng build --configuration production
 ```
+The build artifacts will be stored in the `dist/` directory.
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## Testing
 
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
+**Unit Tests:**
 ```bash
 ng test
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
+**End-to-End Tests:**
 ```bash
 ng e2e
 ```
+_Note: Angular CLI doesn't include a default e2e testing framework. You need to choose and configure one separately._
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Project Structure
+```
+eventify-front-end/
+├── src/                   # Core application source code
+│   ├── app/               # Application components
+│   ├── assets/            # Static assets
+│   ├── environments/      # Environment configurations
+│   └── styles/            # Global style sheets
+├── server/                # Local development API
+├── .editorconfig          # Code style configuration
+├── angular.json           # Angular CLI configuration
+└── tsconfig.json          # TypeScript configuration
+```
 
-## Additional Resources
+## Contributing
+1. Fork the project
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## License
+Distributed under the MIT License. See `LICENSE` file for more information.
+
+___
+## **Authors**
+
+This project is maintained by the AngelDevs-Web team and contributors:
+
+|            **Alumno**            | **Codigo** |
+|:--------------------------------:|:----------:|
+| Fabrizio Alexander Cutiri Agüero | U201914181 |
+| Omar Christian Berrocal Ramirez  | U20201B529 |
+|  Deybbi Anderson Crisanto Calle  | U202120569 |
+|   July Zelmira Paico Calderon    | U20211D760 |
+|     Jean Pierr Aldave Aldave     | U202120005 |
+
+---
+
+**Built with ❤️ by AngelDevs-Web Team**
