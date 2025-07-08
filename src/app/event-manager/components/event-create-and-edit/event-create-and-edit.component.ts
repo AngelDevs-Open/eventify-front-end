@@ -62,7 +62,7 @@ export class EventCreateAndEditComponent implements OnInit {
       title: ['', [Validators.required]],
       date: [new Date(), [Validators.required]],
       customerName: ['', [Validators.required]],
-      location: ['', [Validators.required]],
+      place: ['', [Validators.required]],
       status: [EventStatusEnum.TO_BE_CONFIRMED, [Validators.required]]
     });
   }
@@ -72,7 +72,7 @@ export class EventCreateAndEditComponent implements OnInit {
       title: event.title,
       date: event.date,
       customerName: event.customerName,
-      location: event.location,
+      location: event.place,
       status: event.status.value
     });
   }
@@ -113,7 +113,7 @@ export class EventCreateAndEditComponent implements OnInit {
         title: formValues.title,
         date: eventDate,
         customerName: formValues.customerName,
-        location: formValues.location,
+        place: formValues.location,
         status: new EventStatus(formValues.status)
       });
 
