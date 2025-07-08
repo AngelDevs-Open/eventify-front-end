@@ -1,0 +1,107 @@
+<h2 mat-dialog-title>{{ dialogTitle }}</h2>
+
+<form [formGroup]="albumForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <div class="form-container">
+      <!-- Album Cover Image - Always visible in all modes -->
+      <div class="image-container">
+        <div class="image-preview-container">
+          <img *ngIf="imagePreview" [src]="imagePreview" alt="Album cover preview" class="image-preview">
+          <div *ngIf="!imagePreview" class="no-image">
+            <mat-icon>image</mat-icon>
+            <p>No image selected</p>
+          </div>
+        </div>
+
+        <!-- Upload button - Only in create/edit modes -->
+        <div class="upload-button-container" *ngIf="!isViewMode">
+          <button type="button" mat-raised-button color="primary" (click)="fileInput.click()">
+            <mat-icon>cloud_upload</mat-icon>
+            {{ imagePreview ? 'Change Cover Image' : 'Upload Cover Image' }}
+          </button>
+          <input hidden type="file" #fileInput (change)="onFileSelected($event)" accept="image/*">
+        </div>
+      </div>
+
+      <!-- Form Fields -->
+      <div class="album-info">
+        <!-- View Mode Display -->
+        <div *ngIf="isViewMode" class="view-mode-info">
+          <div class="info-item">
+            <span class="info-label">Title:</span>
+            <span class="info-value">{{ albumForm.get('title')?.value }}</span>
+          </div>
+
+          <div class="info-item">
+            <span class="info-label">Date:</span>
+            <span class="info-value">{{ formatDate(albumForm.get('date')?.value) }}</span>
+          </div>
+
+          <div class="info-item">
+            <span class="info-label">Photos:</span>
+            <span class="info-value">{{ albumForm.get('photoCount')?.value }}</span>
+          </div>
+
+          <div class="info-item description" *ngIf="albumForm.get('description')?.value">
+            <span class="info-label">Description:</span>
+            <span class="info-value">{{ albumForm.get('description')?.value }}</span>
+          </div>
+        </div>
+
+        <!-- Edit/Create Mode Form Fields -->
+        <div *ngIf="!isViewMode" class="edit-mode-form">
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Title</mat-label>
+            <input matInput formControlName="title" placeholder="Album title">
+            <mat-error *ngIf="albumForm.get('title')?.hasError('required')">
+              Title is required
+            </mat-error>
+            <mat-error *ngIf="albumForm.get('title')?.hasError('maxlength')">
+              Title cannot exceed 100 characters
+            </mat-error>
+          </mat-form-field>
+
+          <div class="date-field-container">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Date</mat-label>
+              <input matInput [matDatepicker]="picker" formControlName="date">
+              <mat-error *ngIf="albumForm.get('date')?.hasError('required')">
+                Date is required
+              </mat-error>
+            </mat-form-field>
+            <button type="button" mat-icon-button color="primary" (click)="openDatepicker()">
+              <mat-icon>calendar_today</mat-icon>
+            </button>
+            <mat-datepicker #picker></mat-datepicker>
+          </div>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Description</mat-label>
+            <textarea matInput formControlName="description" rows="3" placeholder="Album description"></textarea>
+            <mat-error *ngIf="albumForm.get('description')?.hasError('maxlength')">
+              Description cannot exceed 500 characters
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+
+      <!-- Photos placeholder - Only in view mode -->
+      <div *ngIf="isViewMode && albumForm.get('photoCount')?.value > 0" class="photos-placeholder">
+        <mat-icon>photo_library</mat-icon>
+        <p>This album contains {{ albumForm.get('photoCount')?.value }} photos</p>
+        <p class="placeholder-note">In a complete implementation, the photos would be displayed here</p>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="onCancel()">
+      {{ isViewMode ? 'Close' : 'Cancel' }}
+    </button>
+
+    <!-- Submit button only in create/edit modes -->
+    <button *ngIf="!isViewMode" mat-raised-button color="primary" type="submit" [disabled]="albumForm.invalid">
+      {{ isEditMode ? 'Update' : 'Create' }}
+    </button>
+  </mat-dialog-actions>
+</form>

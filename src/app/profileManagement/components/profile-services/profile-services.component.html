@@ -1,0 +1,13 @@
+<div class="services-container">
+  <h3>Servicios</h3>
+  <div *ngIf="loading">Cargando...</div>
+  <mat-list *ngIf="!loading">
+    <mat-list-item *ngFor="let s of services">
+      <h4 matLine>{{ s.name }}</h4>
+      <p matLine>{{ s.description }}</p>
+      <p matLine class="price">
+        {{ s.price | currency:'USD' }}
+      </p>
+    </mat-list-item>
+  </mat-list>
+</div>

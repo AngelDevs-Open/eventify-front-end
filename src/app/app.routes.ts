@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import {HomeComponent} from './public/pages/home/home.component';
+import {ProfileManagementComponent} from './profileManagement/pages/profile-management/profile-management.component';
 import {CalendarViewComponent} from './events/pages/calendar-view/calendar-view.component';
 import {authenticationGuard} from './iam/services/authentication.guard';
 import {SignInComponent} from './iam/pages/sign-in/sign-in.component';
@@ -17,6 +18,8 @@ export const routes: Routes = [
   {path:'quotes/:quoteId/edit',loadComponent:QuoteOrderCreateAndEditComponent, data:{title: `${baseTitle} | Quotes`,editMode:true}, canActivate:[authenticationGuard]},
   { path: 'sign-in',          component:      SignInComponent,              data: { title: `${baseTitle} | Sign-in`} },
   { path: 'sign-up',          component:      SignUpComponent,              data: { title: `${baseTitle} | Sign-up`} },
-  {path: 'calendar', component: CalendarViewComponent, data:{title: `${baseTitle} | Calendar`}},
+  {path: 'calendar', component: CalendarViewComponent, data:{title: `${baseTitle} | Calendar`}, canActivate:[authenticationGuard]},
   {path: '', redirectTo: '/home', pathMatch: 'full'},
+  { path: 'profile', component: ProfileManagementComponent, canActivate:[authenticationGuard] },
+  { path: 'profile/:id', component: ProfileManagementComponent, canActivate:[authenticationGuard] }
 ];

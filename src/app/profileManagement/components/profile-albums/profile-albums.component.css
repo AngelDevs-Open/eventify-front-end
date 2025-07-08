@@ -1,0 +1,139 @@
+.albums-container {
+  padding: 16px;
+}
+
+.albums-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.albums-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.album-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  transition: box-shadow 0.3s ease;
+}
+
+.album-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.album-content {
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.album-cover {
+  height: 180px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.album-title {
+  margin: 8px 0;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.album-date, .album-count {
+  margin: 4px 0;
+  color: #666;
+  font-size: 14px;
+}
+
+mat-card-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 8px 16px;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.error-message {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 40px 0;
+  text-align: center;
+  color: #d32f2f;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px 0;
+  gap: 16px;
+  text-align: center;
+}
+
+.empty-state mat-icon {
+  font-size: 48px;
+  width: 48px;
+  height: 48px;
+  opacity: 0.6;
+}
+
+/* Estilos adicionales para asegurar la visibilidad del paginador */
+.pagination-container {
+  margin-top: 24px;
+  margin-bottom: 24px;
+  padding: 8px;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+  display: block !important;
+  width: 100%;
+}
+
+.pagination-info {
+  text-align: center;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #666;
+}
+
+/* Asegurarse que el paginador sea visible */
+::ng-deep .mat-mdc-paginator {
+  background-color: #f5f5f5 !important;
+  display: block !important;
+}
+
+::ng-deep .mat-mdc-paginator-container {
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 56px;
+  padding: 0 8px;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+  .albums-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .albums-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .album-card {
+    width: 100%;
+  }
+}

@@ -1,0 +1,35 @@
+<h2 mat-dialog-title>{{ dialogTitle }}</h2>
+<form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
+  <mat-dialog-content>
+    <div class="form-container">
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Reviewer</mat-label>
+        <input matInput formControlName="reviewer" placeholder="Your name" />
+        <mat-error *ngIf="reviewForm.get('reviewer')?.hasError('required')">
+          Reviewer is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Rating (1-5)</mat-label>
+        <input matInput type="number" formControlName="rating" min="1" max="5" />
+        <mat-error *ngIf="reviewForm.get('rating')?.hasError('required')">
+          Rating is required
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Comment</mat-label>
+        <textarea matInput formControlName="comment" rows="3" placeholder="Comment"></textarea>
+      </mat-form-field>
+    </div>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="onCancel()">
+      {{ isViewMode ? 'Close' : 'Cancel' }}
+    </button>
+    <button *ngIf="!isViewMode" mat-raised-button color="primary" type="submit" [disabled]="reviewForm.invalid">
+      {{ mode === 'edit' ? 'Update' : 'Create' }}
+    </button>
+  </mat-dialog-actions>
+</form>
