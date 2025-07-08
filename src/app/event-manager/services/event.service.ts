@@ -11,38 +11,79 @@ import { environment } from '../../../environments/environment';
   providedIn: 'root'
 })
 export class EventService extends BaseService<Event> {
-  private apiUrl = `${environment.serverBaseUrl}/events`;
+  private apiUrl = `${environment.serverBaseUrl}/social-events`;
 
   constructor() {
     super();
-    this.resourceEndpoint = '/events';
-    console.log('Events API URL:', this.resourcePath());
+    this.resourceEndpoint = '/social-events';
+    console.log('Events API URL:', this.apiUrl);
   }
 
-  // Método mejorado para crear eventos directamente, evitando problemas con BaseService
+  // Método para crear eventos directamente
   createEventDirect(event: EventEntity): Observable<EventEntity> {
     const http = new HttpClient(this.http['handler']);
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-    // Crear un objeto limpio para enviar al servidor
+    // Mapear del frontend al formato que espera el backend
     const eventData = {
-      id: event.id,
       title: event.title,
-      date: event.date instanceof Date ? event.date.toISOString() : event.date,
+      date: event.date instanceof Date ? event.date.toISOString().split('T')[0] : event.date,
       customerName: event.customerName,
-      location: event.location,
-      status: typeof event.status === 'string' ? event.status : event.status.toString(),
-      userId: event.userId
+      place: event.place,
+      status: this.mapFrontendStatusToBackend(event.status.toString())
     };
 
-    console.log('Creating event directly at URL:', this.apiUrl);
+    console.log('Creating event at URL:', this.apiUrl);
     console.log('Event data to send:', eventData);
 
-    return http.post<Event>(this.apiUrl, eventData, { headers }).pipe(
+    return http.post<any>(this.apiUrl, eventData, { headers }).pipe(
       tap(response => console.log('Create event response:', response)),
-      map(response => new EventEntity(response)),
+      map(response => this.mapBackendResponseToEntity(response)),
       catchError(this.handleDirectError)
     );
+  }
+
+  // Mapear respuesta del backend a EventEntity
+  // Simplifica el mapeo - ya no necesitas mapBackendStatusToFrontend
+  private mapBackendResponseToEntity(response: any): EventEntity {
+    console.log('Mapping backend response:', response);
+
+    const eventData: Event = {
+      id: response.id ? response.id.toString() : '',
+      title: response.title || '',
+      date: response.date || new Date(),
+      customerName: response.customerName || '',
+      place: response.place || '',
+      status: response.eventStatus || 'Active', // Usar directamente
+      userId: 'current-user'
+    };
+
+    console.log('Mapped event data:', eventData);
+    return new EventEntity(eventData);
+  }
+
+
+
+  // Mapear estados del frontend al backend
+  private mapFrontendStatusToBackend(frontendStatus: string): string {
+    const statusMap: { [key: string]: string } = {
+      'TO_BE_CONFIRMED': 'TO_CONFIRM',
+      'ACTIVE': 'ACTIVE',
+      'CANCELED': 'CANCELLED',
+      'COMPLETED': 'COMPLETED'
+    };
+    return statusMap[frontendStatus] || frontendStatus;
+  }
+
+  // Mapear estados del backend al frontend
+  private mapBackendStatusToFrontend(backendStatus: string): string {
+    const statusMap: { [key: string]: string } = {
+      'TO_CONFIRM': 'TO_BE_CONFIRMED',
+      'ACTIVE': 'ACTIVE',
+      'CANCELLED': 'CANCELED',
+      'COMPLETED': 'COMPLETED'
+    };
+    return statusMap[backendStatus] || backendStatus;
   }
 
   private handleDirectError(error: HttpErrorResponse) {
@@ -70,7 +111,7 @@ export class EventService extends BaseService<Event> {
         .filter(event =>
           event.title.toLowerCase().includes(query.toLowerCase()) ||
           event.customerName.toLowerCase().includes(query.toLowerCase()) ||
-          event.location.toLowerCase().includes(query.toLowerCase())
+          event.place.toLowerCase().includes(query.toLowerCase())
         )
       )
     );
@@ -85,14 +126,23 @@ export class EventService extends BaseService<Event> {
     );
   }
 
-  // Envolvemos los métodos del BaseService para transformar de/a EventEntity
+  // Métodos del BaseService adaptados
   override getAll(): Observable<Event[]> {
+    console.log('Getting all events from:', this.apiUrl);
     return super.getAll();
   }
 
   getAllAsEntities(): Observable<EventEntity[]> {
     return this.getAll().pipe(
-      map(events => events.map(event => new EventEntity(event)))
+      map(events => {
+        console.log('Raw events from API:', events);
+        return events.map(event => this.mapBackendResponseToEntity(event));
+      }),
+      tap(entities => console.log('Mapped entities:', entities)),
+      catchError(error => {
+        console.error('Error getting all events:', error);
+        return throwError(() => error);
+      })
     );
   }
 
@@ -102,7 +152,7 @@ export class EventService extends BaseService<Event> {
 
   getByIdAsEntity(id: string): Observable<EventEntity> {
     return this.getById(id).pipe(
-      map(event => new EventEntity(event))
+      map(event => this.mapBackendResponseToEntity(event))
     );
   }
 
@@ -113,7 +163,6 @@ export class EventService extends BaseService<Event> {
 
   createEntity(event: EventEntity): Observable<EventEntity> {
     console.log('Creating entity with data:', event);
-    // Usar el método directo en lugar del BaseService
     return this.createEventDirect(event);
   }
 
